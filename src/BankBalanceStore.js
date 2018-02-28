@@ -35,7 +35,7 @@ BankBalanceStore.dispatchToken = AppDispatcher.register((action) => {
 
 export default BankBalanceStore */
 
-// 采用Flux的Store基类
+/* // 采用Flux的Store基类
 import AppDispatcher from './AppDispatcher'
 import {Store} from 'flux/utils'
 import bankConstants from './constants'
@@ -61,6 +61,32 @@ class BankBalanceStore extends Store {
                 balance = balance-action.ammount
                 this.__emitChange()
                 break
+        }
+    }
+}
+
+export default new BankBalanceStore(AppDispatcher) */
+
+// 采用Flux的ReduceStore
+import AppDispatcher from './AppDispatcher'
+import bankConstants from './constants'
+import {ReduceStore} from 'flux/utils'
+
+class BankBalanceStore extends ReduceStore {
+    getInitialState() {
+        return 0
+    }
+
+    reduce(state, action) {
+        switch(action.type) {
+            case bankConstants.CREATED_ACCOUNT :
+                return 0
+            case bankConstants.DEPOSITED_INTO_ACCOUNT :
+                return state+action.ammount
+            case bankConstants.WITHDRAW_FROM_ACCOUNT :
+                return state-action.ammount
+            default :
+                return state
         }
     }
 }
