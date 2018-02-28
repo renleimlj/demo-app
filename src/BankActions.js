@@ -1,4 +1,4 @@
-import AppDispatcher from './AppDispacher'
+import AppDispatcher from './AppDispatcher'
 import bankConstants from './constants'
 
 let  BankActions = {
